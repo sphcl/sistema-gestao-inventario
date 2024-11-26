@@ -1,5 +1,35 @@
-#Aqui está espaço para o trecho de código do login e autenticação com o arquivo login.txt
-#Após essa etapa o usuário é levado para o menu de operações
+import hashlib
+def crialogin(): #cria e lê o login
+    try:
+        a = open('login.txt', 'r')
+    except FileNotFoundError:
+        a = open('login.txt', 'w+')
+        usuario = input('Digite o nome do usuário:')
+        usuario = hashlib.sha256(usuario.encode()).hexdigest()
+        senha = input('Digite a senha:')
+        senha = hashlib.sha256(senha.encode()).hexdigest()
+        a.write(f'{usuario}\n{senha}\n')
+
+def autentica(): #pede pro usuário, passa pelo hash
+    usuarioinput = input('Digite o nome do usuário:')
+    usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest()
+    senhainput = input('Digite a senha:')
+    senhainput = hashlib.sha256(senhainput.encode()).hexdigest()
+    
+    try: 
+        with open('login.txt', 'r') as a:
+            usuario = a.readline().strip() #lê a primeira linha
+            senha = a.readline().strip() #lê a segunda linha
+
+            if usuarioinput == usuario and senhainput == senha: #compara a original com a inserida
+                print('Autenticação bem-sucedida')
+            else:
+                print('Usuario ou senha incorretos')
+    except FileNotFoundError: #caso não exista o primeiro acesso
+            print('Login não identificado. Crie um login primeiro')
+
+crialogin()
+autentica()
 
 def menu():
     """Função que organiza as outras funções do código em um
