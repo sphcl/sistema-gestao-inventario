@@ -23,10 +23,13 @@ def autentica(): #pede pro usuário, passa pelo hash
 
             if usuarioinput == usuario and senhainput == senha: #compara a original com a inserida
                 print('Autenticação bem-sucedida')
+                return True, usuario
             else:
                 print('Usuario ou senha incorretos')
+                return False, None
     except FileNotFoundError: #caso não exista o primeiro acesso
             print('Login não identificado. Crie um login primeiro')
+            return False, None
 
 crialogin()
 autentica()
