@@ -117,9 +117,59 @@ def atualiza_item(produtos):
 def exibe_iventario(produtos):
     pass
 
-#Função vazia por enquanto
+#esse encontra item tem q verificar a existência de um produto (por ID ou nome).
 def encontra_item(produtos):
-    pass
+    busca = input("Você quer buscar um item pelo seu nome ou pelo ID? (Digite 'nome' ou 'id'): ").strip().lower() #o usuário insere sua opção e independete de como estiver escrito
+                                                                                                                  #vai ser convertido em letras maiúsculas e sem espaços
+    if busca == 'nome':  #se o usuário preferiu a busca por nome
+        busca_nome = input('Digite o nome do item, por favor: ').strip().lower()
+        encontrado = False
+
+        for chave, valor in produtos.items(): 
+            ID = chave
+            valor['nome']
+
+        # Procurando pelos itens para verificar correspondência de nomes
+        for produto in produtos.values():
+            if busca_nome == produtos['nome'].lower():  # Comparação insensível a maiúsculas/minúsculas
+                print(f'Este é o ID: {chave}')
+                print(f'Este é o nome: {produtos["nome"]}')
+                print(f'Este é o preço: {produtos["preco"]}')
+                print(f'Esta é quantidade: {produtos["qtd"]}')
+                print('É importado: ', end='')
+                if valor['importado']:
+                    print('sim')
+                else:
+                    print('não')
+                print('-'*40)
+                encontrado = True
+                break
+        
+        if not encontrado:
+            print('Este item não foi encontrado!') 
+
+    elif busca == 'id':
+        busca_id = input('Digite o ID do produto, por favor: ').strip()
+
+        # Verificando se o ID existe no dicionário
+        if busca_id in produtos:
+            print(f'Produto com o ID:{produtos["busca_id"]} enontrado') 
+            print(f'Este é o nome: {produtos["busca_id"]["nome"]}')
+            print(f'Este é o preço: {produtos["busca_id"]["preco"]}')
+            print(f'Esta é quantidade: {produtos["busca_id"]["qtd"]}')
+            print('É importado: ', end='')
+            if produtos['busca_id']['importado']:
+                print('sim')
+            else:
+                print('não')
+            print('-'*40)
+        else:
+            print('Este item não foi encontrado!') 
+
+    else:
+        print("Opção inválida! Digite 'nome' ou 'id'.") 
+
+    
 
 #Função vazia por enquanto
 def estatistica_inventario(produtos):
