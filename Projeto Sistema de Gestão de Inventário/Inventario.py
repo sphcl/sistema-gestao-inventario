@@ -181,8 +181,6 @@ def encontra_item(produtos):
     else:
         print("Opção inválida! Digite 'nome' ou 'id'.") 
 
-    
-
 #Função vazia por enquanto
 def estatistica_inventario(produtos):
     pass
