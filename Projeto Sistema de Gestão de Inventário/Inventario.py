@@ -131,55 +131,131 @@ def exibe_iventario(produtos):
 
 #esse encontra item tem q verificar a existência de um produto (por ID ou nome).
 def encontra_item(produtos):
-    busca = input("Você quer buscar um item pelo seu nome ou pelo ID? (Digite 'nome' ou 'id'): ").strip().lower() #o usuário insere sua opção e independete de como estiver escrito
-                                                                                                                  #vai ser convertido em letras maiúsculas e sem espaços
-    if busca == 'nome':  #se o usuário preferiu a busca por nome
-        busca_nome = input('Digite o nome do item, por favor: ').strip().lower()
-        encontrado = False
+    proc_prod = int(input('Digite 1 para uma busca detalhada ou 2 para verificar apenas a existência do produto:'))
 
-        for chave, valor in produtos.items(): 
-            ID = chave
-            valor['nome']
+    if proc_prod == 1:
+        
+        busca = input("Você quer buscar um item pelo seu nome ou pelo ID? (Digite 'nome' ou 'id'): ").strip().lower() #o usuário insere sua opção e independete de como estiver escrito
+                                                                                                                      #vai ser convertido em letras maiúsculas e sem espaços
+        if busca == 'nome':  #se o usuário preferiu a busca por nome
+            busca_nome = input('Digite o nome do item, por favor: ').strip().lower()
+            encontrado = False
 
-        # Procurando pelos itens para verificar correspondência de nomes
-        for produto in produtos.values():
-            if busca_nome == produtos['nome'].lower():  # Comparação insensível a maiúsculas/minúsculas
-                print(f'Este é o ID: {chave}')
-                print(f'Este é o nome: {produtos["nome"]}')
-                print(f'Este é o preço: {produtos["preco"]}')
-                print(f'Esta é quantidade: {produtos["qtd"]}')
+            for chave, valor in produtos.items(): 
+                ID = chave
+                valor['nome']
+
+            # Procurando pelos itens para verificar correspondência de nomes
+            for produto in produtos.values():
+                if busca_nome == produtos['nome'].lower():  # Comparação insensível a maiúsculas/minúsculas
+                    print(f'Este é o ID: {chave}')
+                    print(f'Este é o nome: {produtos["nome"]}')
+                    print(f'Este é o preço: {produtos["preco"]}')
+                    print(f'Esta é quantidade: {produtos["qtd"]}')
+                    print('É importado: ', end='')
+                    if valor['importado']:
+                        print('sim')
+                    else:
+                        print('não')
+                    print('-'*40)
+                    encontrado = True
+                    break
+            
+                if not encontrado:
+                    print('Este item não foi encontrado!') 
+
+        elif busca == 'id':
+            busca_id = int(input('Digite o ID do produto, por favor: ')).strip()
+
+            # Verificando se o ID existe no dicionário
+            if busca_id in produtos:
+                print("-"*40)
+                print(f'Produto com o ID:{produtos["busca_id"]} enontrado') 
+                print(f'Este é o nome: {produtos["busca_id"]["nome"]}')
+                print(f'Este é o preço: {produtos["busca_id"]["preco"]}')
+                print(f'Esta é quantidade: {produtos["busca_id"]["qtd"]}')
                 print('É importado: ', end='')
-                if valor['importado']:
+                if produtos['busca_id']['importado']:
                     print('sim')
                 else:
                     print('não')
                 print('-'*40)
-                encontrado = True
-                break
-        
-        if not encontrado:
-            print('Este item não foi encontrado!') 
-
-    elif busca == 'id':
-        busca_id = input('Digite o ID do produto, por favor: ').strip()
-
-        # Verificando se o ID existe no dicionário
-        if busca_id in produtos:
-            print(f'Produto com o ID:{produtos["busca_id"]} enontrado') 
-            print(f'Este é o nome: {produtos["busca_id"]["nome"]}')
-            print(f'Este é o preço: {produtos["busca_id"]["preco"]}')
-            print(f'Esta é quantidade: {produtos["busca_id"]["qtd"]}')
-            print('É importado: ', end='')
-            if produtos['busca_id']['importado']:
-                print('sim')
             else:
-                print('não')
-            print('-'*40)
-        else:
-            print('Este item não foi encontrado!') 
+                print("-"*40)
+                print('Este item não foi encontrado!')
+                print("-"*40)
 
-    else:
-        print("Opção inválida! Digite 'nome' ou 'id'.") 
+        else:
+            print("-"*40)
+            print("Opção inválida! Digite 'nome' ou 'id'.")
+            print("-"*40)
+
+    elif proc_prod == 2:
+        # Entrada do nome a ser procurado
+        nome_proc = input('Digite por favor o nome do produto que você deseja verificar: ').strip().lower()
+
+        # Lista de valores do dicionário
+        lista_valores = list(produtos.values())
+
+        # Função de troca
+        def troca(L, i, j):
+            temp = L[i]
+            L[i] = L[j]
+            L[j] = temp
+
+        # Função para ordenar (Selection sort)
+        def selection_sort(lista):
+            n = len(lista)  # Tamanho da lista
+            for i in range(n):
+                # Assume que o menor elemento está na posição i
+                menor_indice = i
+                # Procura pelo menor elemento no restante da lista
+                for j in range(i + 1, n):
+                    if lista[j]['nome'] < lista[menor_indice]['nome']:  # Ordenação por 'nome'
+                        menor_indice = j
+                # Troca usando a função troca
+                troca(lista, i, menor_indice)
+
+        # Ordenar a lista antes da busca binária
+        selection_sort(lista_valores)
+
+        # Função de busca binária
+        def busca_binaria(lista, alvo):
+            inicio = 0
+            fim = len(lista) - 1
+
+            while inicio <= fim:
+                meio = (inicio + fim) // 2
+                # Comparar o campo 'nome' do dicionário
+                nome_atual = lista[meio]['nome'].lower()  # Padronizar para letras minúsculas
+                if nome_atual == alvo:
+                    return meio  # Retorna o índice do nome
+                elif nome_atual < alvo:
+                    inicio = meio + 1  # Procure na metade superior
+                else:
+                    fim = meio - 1  # Procure na metade inferior
+            
+            return -1  # Retorna -1 se o nome não foi encontrado
+
+        # Buscar o nome fornecido pelo usuário
+        resultado = busca_binaria(lista_valores, nome_proc)
+
+        # Exibir o resultado
+        if resultado != -1:
+            print("-"*40)
+            print(f"O produto '{nome_proc}' está no inventário!")
+            print("-"*40)
+        else:
+            print("-"*40)
+            print(f"O produto '{nome_proc}' não está no inventário...")
+            print("-"*40)
+
+    else :
+        print("-"*40)
+        print('Por favor digite apenas 1 ou 2!!')
+        print("-"*40)
+
+ 
 
 #Função vazia por enquanto
 def estatistica_inventario(produtos):
