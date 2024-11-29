@@ -1,6 +1,6 @@
-import hashlib
+ import hashlib
 def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
-    try:
+    try: #tenta abrr o arquvo 'logn.txt para ler (se existir)
         a = open('login.txt', 'r')
         autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
                      #a entrada do usuário precisa ser autenticada
@@ -16,9 +16,9 @@ def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
 def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as informações de login para autenticação
                  #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está no arquivo
     usuarioinput = input('Digite o nome do usuário:')
-    usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest()
+    usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest() #criptografa entrada usuario
     senhainput = input('Digite a senha:')
-    senhainput = hashlib.sha256(senhainput.encode()).hexdigest()
+    senhainput = hashlib.sha256(senhainput.encode()).hexdigest() #criptografa entrada senha 
 
     try: 
         with open('login.txt', 'r') as a: #abre o arquivo apenas para leitura
@@ -30,7 +30,7 @@ def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as in
                                                                            # ela retorna trua ou false internamente
             if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
                 print('Autenticação bem-sucedida')
-                menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu()
+                menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu() para ele seguir no fluxo do programa
             else:
                 print('Usuario ou senha incorretos. Tente novamente') #caso a autenticação não seja bem sucedida
                 autentica() # chama a função autentica para o usuério tentar novamente colocar as informações corretas
@@ -118,7 +118,7 @@ def autentica2(): #função igual 'autentica()' mas apenas para a autentficaçã
                 senha_nova() #após autenticação bem sucedida o usuário pode definir uma senha nova
             else:
                 print('Usuario ou senha incorretos. Tente novamente')
-                autentica2()      
+                autentica2() # chama a função autentica2 para o usuário tentar novamente colocar as informações corretas     
 
     except FileNotFoundError: #caso não exista o primeiro acesso
             print('Login não identificado. Crie um login primeiro')
