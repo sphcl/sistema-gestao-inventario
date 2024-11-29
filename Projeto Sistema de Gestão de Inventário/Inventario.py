@@ -100,7 +100,8 @@ def redefinir_senha():
     print("Para redefinir a senha, autentique-se primeiro.")
     autentica2()  # Reutilizando a função de autenticação
 
-def autentica2(): #pede pro usuário, passa pelo hash
+def autentica2(): #função igual 'autentica()' mas apenas para a autentficação de redefir senha. Porque a outra função de autenticação leva o usuário para a função menu(), 
+                  # essa vai levar o usuário para a função senha_nova()
     usuario2 = input('Digite o nome de usuário atual:')
     usuario2 = hashlib.sha256(usuario2.encode()).hexdigest()
     senha2 = input('Digite a senha atual:')
@@ -114,28 +115,29 @@ def autentica2(): #pede pro usuário, passa pelo hash
             autenticacao = usuario2 == usuario and senha2 == senha #compara a original com a inserida
             if autenticacao: #Se a variável autenticado for verdadeira
                 print('Autenticação bem-sucedida')
-                senha_nova()
+                senha_nova() #após autenticação bem sucedida o usuário pode definir uma senha nova
             else:
                 print('Usuario ou senha incorretos. Tente novamente')
-                autentica()      
+                autentica2()      
 
     except FileNotFoundError: #caso não exista o primeiro acesso
             print('Login não identificado. Crie um login primeiro')
 
 def senha_nova():
-    nova_senha = input('Digite a nova senha: ').strip()
-    nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
+    nova_senha = input('Digite a nova senha: ').strip() #usuário escreve a nova senha que ele deseja
+    nova_senha_confirmacao = input('Confirme a nova senha: ').strip() # confrma a nova senha que ele quer
 
-    if nova_senha == nova_senha_confirmacao:
-            usuario = input('Insira o nome do usuário atual: ')
-            usuario = hashlib.sha256(usuario.encode()).hexdigest()
-            nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest()
-
+    if nova_senha == nova_senha_confirmacao: #Valida se o usuáro escreveu a senha corretamente
+            usuario = input('Insira o nome do usuário atual: ') #pede o nome do usuário só para conseguir escrever no 'login.txt' de novo
+            usuario = hashlib.sha256(usuario.encode()).hexdigest() #crptografar o usuário de novo para conseguir validar a entrada depois da redefinção da senha 
+            nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest() # crptografa a nova senha
             with open('login.txt', 'w') as a:
-                a.write(f'{usuario}\n{nova_senha}\n')
+                a.write(f'{usuario}\n{nova_senha}\n') #apaga tudo que tem no arquivo 'logn.txt' e escreve o usuário e a nova senha definidos nessa função 
             print("Senha redefinida com sucesso!")
-    else:
+        
+    else: #caso o usuáro tenha escrito a nova senha e a confirmação de formas diferentes, ele precisa fazer de novo
             print("As senhas não correspondem. Tente novamente.")
+            nova_senha()
 
 
 def adiciona_item(produtos):
