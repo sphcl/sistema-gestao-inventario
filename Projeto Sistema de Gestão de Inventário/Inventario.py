@@ -78,23 +78,65 @@ def menu():
         else:
             print('Essa opção não existe. Tente novamente')
 
+# def redefinir_senha():
+#     print("Para redefinir a senha, autentique-se primeiro.")
+#     autenticado, usuario = autentica()  # Reutilizando a função de autenticação
+
+#     if autenticado:
+#         nova_senha = input('Digite a nova senha: ').strip()
+#         nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
+
+#         if nova_senha == nova_senha_confirmacao:
+#             nova_senha_hash = hashlib.sha256(nova_senha.encode()).hexdigest()
+#             with open('login.txt', 'w') as a:
+#                 a.write(f'{usuario}\n{nova_senha_hash}\n')
+#             print("Senha redefinida com sucesso!")
+#         else:
+#             print("As senhas não correspondem. Tente novamente.")
+#     else:
+#         print("Redefinição de senha cancelada devido à falha na autenticação.")
+
+def autentica2(): #pede pro usuário, passa pelo hash
+    usuario2 = input('Digite o nome de usuário atual:')
+    usuario2 = hashlib.sha256(usuario2.encode()).hexdigest()
+    senha2 = input('Digite a senha atual:')
+    senha2 = hashlib.sha256(senha2.encode()).hexdigest()
+    
+    try: 
+        with open('login.txt', 'r') as a:
+            usuario = a.readline().strip() #lê a primeira linha
+            senha = a.readline().strip() #lê a segunda linha
+
+            autenticacao = usuario2 == usuario and senha2 == senha #compara a original com a inserida
+            if autenticacao: #Se a variável autenticado for verdadeira
+                print('Autenticação bem-sucedida')
+                senha_nova()
+            else:
+                print('Usuario ou senha incorretos. Tente novamente')
+                autentica()      
+
+    except FileNotFoundError: #caso não exista o primeiro acesso
+            print('Login não identificado. Crie um login primeiro')
+
 def redefinir_senha():
     print("Para redefinir a senha, autentique-se primeiro.")
-    autenticado, usuario = autentica()  # Reutilizando a função de autenticação
+    autentica2()  # Reutilizando a função de autenticação
 
-    if autenticado:
-        nova_senha = input('Digite a nova senha: ').strip()
-        nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
+def senha_nova():
+    nova_senha = input('Digite a nova senha: ').strip()
+    nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
 
-        if nova_senha == nova_senha_confirmacao:
-            nova_senha_hash = hashlib.sha256(nova_senha.encode()).hexdigest()
+    if nova_senha == nova_senha_confirmacao:
+            usuario = input('Insira o nome do usuário: ')
+            usuario = hashlib.sha256(usuario.encode()).hexdigest()
+            nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest()
+
             with open('login.txt', 'w') as a:
-                a.write(f'{usuario}\n{nova_senha_hash}\n')
+                a.write(f'{usuario}\n{nova_senha}\n')
             print("Senha redefinida com sucesso!")
-        else:
-            print("As senhas não correspondem. Tente novamente.")
     else:
-        print("Redefinição de senha cancelada devido à falha na autenticação.")
+            print("As senhas não correspondem. Tente novamente.")
+
 
 def adiciona_item(produtos):
     """Fução para adicionar um novo item (chave:valor)
