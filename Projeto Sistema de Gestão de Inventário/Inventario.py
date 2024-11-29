@@ -15,10 +15,10 @@ def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
 
 def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as informações de login para autenticação
                  #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está no arquivo
-    senhainput = input('Digite a senha:')
-    senhainput = hashlib.sha256(senhainput.encode()).hexdigest()
     usuarioinput = input('Digite o nome do usuário:')
     usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest()
+    senhainput = input('Digite a senha:')
+    senhainput = hashlib.sha256(senhainput.encode()).hexdigest()
 
     try: 
         with open('login.txt', 'r') as a: #abre o arquivo apenas para leitura
@@ -127,7 +127,7 @@ def senha_nova():
     nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
 
     if nova_senha == nova_senha_confirmacao:
-            usuario = input('Insira o nome do usuário: ')
+            usuario = input('Insira o nome do usuário atual: ')
             usuario = hashlib.sha256(usuario.encode()).hexdigest()
             nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest()
 
