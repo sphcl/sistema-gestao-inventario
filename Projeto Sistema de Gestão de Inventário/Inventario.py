@@ -1,6 +1,6 @@
  import hashlib
 def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
-    try: #tenta abrr o arquvo 'logn.txt para ler (se existir)
+    try: #tenta abrir o arquvo 'logn.txt para ler (se existir)
         a = open('login.txt', 'r')
         autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
                      #a entrada do usuário precisa ser autenticada
@@ -26,8 +26,8 @@ def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as in
             senha = a.readline().strip() #lê a segunda linha criptografada do arquivo e atribui a variável 'senha'
 
             autenticacao = usuarioinput == usuario and senhainput == senha #variavel 'autenticacao' vai receber a comparaçao das entradas 'usuarioinput' e 'senhainput'
-                                                                           # com o usurio e senha que ja estavam no arquivo 'logiin.txt', através da hash256
-                                                                           # ela retorna trua ou false internamente
+                                                                           # com o usurio e senha que ja estavam no arquivo 'login.txt', através da hash256
+                                                                           # ela retorna true ou false internamente
             if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
                 print('Autenticação bem-sucedida')
                 menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu() para ele seguir no fluxo do programa
