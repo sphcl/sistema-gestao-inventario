@@ -33,7 +33,7 @@ def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as in
                 menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu()
             else:
                 print('Usuario ou senha incorretos. Tente novamente') #caso a autenticação não seja bem sucedida
-                autentca() # chama a função autentica para o usuério tentar novamente colocar as informações corretas
+                autentica() # chama a função autentica para o usuério tentar novamente colocar as informações corretas
     
     except FileNotFoundError:
             print('Login não identificado.')
