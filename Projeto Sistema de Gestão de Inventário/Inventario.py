@@ -1,38 +1,43 @@
 import hashlib
-def crialogin(): #cria e lê o login
+def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
     try:
         a = open('login.txt', 'r')
+        autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
+                     #a entrada do usuário precisa ser autenticada
     except FileNotFoundError:
-        a = open('login.txt', 'w+')
-        usuario = input('Digite o nome do usuário:')
-        usuario = hashlib.sha256(usuario.encode()).hexdigest()
-        senha = input('Digite a senha:')
-        senha = hashlib.sha256(senha.encode()).hexdigest()
+        a = open('login.txt', 'w+') #Caso não exista um arquivo 'login.txt' ele cria e permite a escrita
+        usuario = input('Cadastre o nome do usuário:')
+        usuario = hashlib.sha256(usuario.encode()).hexdigest() #Aplicando a função hash236 para o nome do usuario
+        senha = input('Cadastre a senha:')
+        senha = hashlib.sha256(senha.encode()).hexdigest() #Aplicando a função hash236 para a senha do usuario
         a.write(f'{usuario}\n{senha}\n')
+        menu() #Chama a função menu. Ja que é o primeiro cadastro do usuário ele não precisa ser autenticado
 
-def autentica(): #pede pro usuário, passa pelo hash
-    usuarioinput = input('Digite o nome do usuário:')
-    usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest()
+def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as informações de login para autenticação
+                 #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está no arquivo
     senhainput = input('Digite a senha:')
     senhainput = hashlib.sha256(senhainput.encode()).hexdigest()
-    
+    usuarioinput = input('Digite o nome do usuário:')
+    usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest()
+
     try: 
-        with open('login.txt', 'r') as a:
-            usuario = a.readline().strip() #lê a primeira linha
-            senha = a.readline().strip() #lê a segunda linha
+        with open('login.txt', 'r') as a: #abre o arquivo apenas para leitura
+            usuario = a.readline().strip() #lê a primeira linha criptografada do arquivo e atribui a variável 'usuário'
+            senha = a.readline().strip() #lê a segunda linha criptografada do arquivo e atribui a variável 'senha'
 
-            if usuarioinput == usuario and senhainput == senha: #compara a original com a inserida
+            autenticacao = usuarioinput == usuario and senhainput == senha #variavel 'autenticacao' vai receber a comparaçao das entradas 'usuarioinput' e 'senhainput'
+                                                                           # com o usurio e senha que ja estavam no arquivo 'logiin.txt', através da hash256
+                                                                           # ela retorna trua ou false internamente
+            if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
                 print('Autenticação bem-sucedida')
-                return True, usuario
+                menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu()
             else:
-                print('Usuario ou senha incorretos')
-                return False, None
-    except FileNotFoundError: #caso não exista o primeiro acesso
-            print('Login não identificado. Crie um login primeiro')
+                print('Usuario ou senha incorretos. Tente novamente') #caso a autenticação não seja bem sucedida
+                autentca() # chama a função autentica para o usuério tentar novamente colocar as informações corretas
+    
+    except FileNotFoundError:
+            print('Login não identificado.')
             return False, None
-
-crialogin()
-autentica()
 
 def menu():
     """Função que organiza as outras funções do código em um
@@ -264,8 +269,7 @@ def estatistica_inventario(produtos):
 # Criando inventario Produtos
 produtos = {}
 
-#chamando a função menu para começar o programa
-menu()
+#chamando a função crialogin() para começar o programa
+crialogin()
 
-#exibindo o inventário
-# print(produtos)
+
