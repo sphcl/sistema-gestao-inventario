@@ -96,6 +96,10 @@ def menu():
 #     else:
 #         print("Redefinição de senha cancelada devido à falha na autenticação.")
 
+def redefinir_senha():
+    print("Para redefinir a senha, autentique-se primeiro.")
+    autentica2()  # Reutilizando a função de autenticação
+
 def autentica2(): #pede pro usuário, passa pelo hash
     usuario2 = input('Digite o nome de usuário atual:')
     usuario2 = hashlib.sha256(usuario2.encode()).hexdigest()
@@ -117,10 +121,6 @@ def autentica2(): #pede pro usuário, passa pelo hash
 
     except FileNotFoundError: #caso não exista o primeiro acesso
             print('Login não identificado. Crie um login primeiro')
-
-def redefinir_senha():
-    print("Para redefinir a senha, autentique-se primeiro.")
-    autentica2()  # Reutilizando a função de autenticação
 
 def senha_nova():
     nova_senha = input('Digite a nova senha: ').strip()
