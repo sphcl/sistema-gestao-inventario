@@ -43,8 +43,7 @@ def autentica():
             return False, None
 
 def menu():
-    """Função que organiza as outras funções do código em um
-    menu de operações. O usuário executa apenas as funções que
+    """Função que organiza as outras funções do código em um menu de operações. O usuário executa apenas as funções que
     escolher de acordo com o menu"""
 
     #Exibe as ações que o usuário pode ter no nosso programa
