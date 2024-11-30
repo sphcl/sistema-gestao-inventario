@@ -138,12 +138,19 @@ def adiciona_item(produtos):
     else: 
         importado = False
 
-    valor = [nome, qtd, preco, importado]
+     valor = {
+        'nome': nome, 
+        'qtd': cesar(qtd), 
+        'preco': cesar(preco), 
+        'importado': importado
+        }
 
     produtos[chave] = valor
 
-    #mostrando para o usuário o nome do produto que ele adicionou ao inventário
-    print(f'{valor[0]} adicionado com sucesso ao inventário de produtos')
+     #mostrando para o usuário o nome do produto que ele adicionou ao inventário
+    print(50 * '-')
+    print(f'{valor["nome"]} adicionado com sucesso ao inventário de produtos')
+    print(50 * '-')
 
     #Devolvendo o usuário ao menu de operação
     menu()
