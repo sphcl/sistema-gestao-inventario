@@ -183,9 +183,39 @@ def remove_item(produtos):
 def atualiza_item(produtos):
     pass
 
-#Função vazia por enquanto - duda
+#Função em teste ainda - duda
 def exibe_iventario(produtos):
-    pass
+    """
+    Função para exibir os produtos no inventário em ordem alfabética de nomes.
+    """
+
+    #Verifica se o dicionário está vazio
+    if not produtos:
+        print("O inventário está vazio.")
+        return
+
+    #Converte os produtos para uma lista de tuplas (ID, [nome, qtd, preco, importado])
+    produtos_lista = [(k, v) for k, v in produtos.items()]
+
+    #Função de bubble sort para ordenar pelo nome
+    n = len(produtos_lista)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if produtos_lista[j][1][0].lower() > produtos_lista[j + 1][1][0].lower():
+                produtos_lista[j], produtos_lista[j + 1] = produtos_lista[j + 1], produtos_lista[j]
+
+    #Exibindo os produtos ordenados
+    print("Inventário de Produtos (Ordenado por Nome):")
+    print("-" * 40)
+    for id_produto, dados in produtos_lista:
+        nome, qtd, preco, importado = dados
+        print(f"ID: {id_produto}")
+        print(f"Nome: {nome}")
+        print(f"Quantidade: {qtd}")
+        print(f"Preço: R${preco:.2f}")
+        print(f"Importado: {'Sim' if importado else 'Não'}")
+        print("-" * 40)
+
 
 #esse encontra item tem q verificar a existência de um produto (por ID ou nome).
 def encontra_item(produtos):
