@@ -1,4 +1,4 @@
- import hashlib
+import hashlib
 def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
     try: #tenta abrir o arquvo 'logn.txt para ler (se existir)
         a = open('login.txt', 'r')
