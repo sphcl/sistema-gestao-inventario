@@ -184,7 +184,9 @@ def atualiza_item(produtos):
 
 #Função em teste ainda - duda
 def exibe_iventario(produtos):
-    """Função para exibir os produtos no inventário em ordem alfabética de nomes."""
+    """
+    Função para exibir os produtos no inventário em ordem alfabética de nomes.
+    """
 
     #Verifica se o dicionário está vazio
     if not produtos:
