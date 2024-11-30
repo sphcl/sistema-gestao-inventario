@@ -147,7 +147,7 @@ def adiciona_item(produtos):
 
     produtos[chave] = valor
 
-     #mostrando para o usuário o nome do produto que ele adicionou ao inventário
+    #mostrando para o usuário o nome do produto que ele adicionou ao inventário
     print(50 * '-')
     print(f'{valor["nome"]} adicionado com sucesso ao inventário de produtos')
     print(50 * '-')
@@ -155,15 +155,29 @@ def adiciona_item(produtos):
     #Devolvendo o usuário ao menu de operação
     menu()
 
-#Função vazia por enquanto -  lelet e jaja
 def remove_item(produtos):
-    pass
+     """Função para remover um item do dicionário de produtos"""
+    
+    chave = input('Insira o ID do produto que deseja remover: ')
+    
+    if chave in produtos:
+        del produtos[chave] #função que remove um item do dicionário
+        print(50 * '-') #mostrando para o usuério que o item foi removido
+        print(f'Produto com ID {chave} removido com sucesso do inventário.')
+        print(50 * '-')
+    else:
+        print(50 * '-') #mostrando para o usuário que o item não existe no iventário
+        print(f'O produto com ID {chave} não existe no inventário.')
+        print(50 * '-')
 
-#Função vazia por enquanto -  lelet e jaja
+    # Devolvendo o usuário ao menu de operação
+    menu()
+
+#Função vazia por enquanto - soso
 def atualiza_item(produtos):
     pass
 
-#Função vazia por enquanto
+#Função vazia por enquanto - duda
 def exibe_iventario(produtos):
     pass
 
@@ -295,7 +309,7 @@ def encontra_item(produtos):
 
  
 
-#Função vazia por enquanto
+#Função vazia por enquanto - soso
 def estatistica_inventario(produtos):
     pass
 
