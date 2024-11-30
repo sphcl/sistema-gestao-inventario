@@ -1,5 +1,6 @@
 import hashlib
-def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
+def crialogin(): 
+    """Função que começa o login do usuário. Cria ou apenas lê um arquivo 'login.txt' ja existente """
     try: #tenta abrir o arquvo 'logn.txt para ler (se existir)
         a = open('login.txt', 'r')
         autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
@@ -13,8 +14,10 @@ def crialogin(): #Função cria ou lê um arquivo 'login.txt' ja existente
         a.write(f'{usuario}\n{senha}\n')
         menu() #Chama a função menu. Ja que é o primeiro cadastro do usuário ele não precisa ser autenticado
 
-def autentica(): #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as informações de login para autenticação
-                 #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está no arquivo
+def autentica(): 
+    """Função que autentica o login do usuário caso o arquivo login.txt ja exista no momento que ele roda programa"""
+    #Se o arquivo login.txt ja tem conteúdo, pede ao usuario as informações de entrada para autenticação
+    #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está no arquivo
     usuarioinput = input('Digite o nome do usuário:')
     usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest() #criptografa entrada usuario
     senhainput = input('Digite a senha:')
@@ -79,11 +82,14 @@ def menu():
             print('Essa opção não existe. Tente novamente')
             
 def redefinir_senha():
+    """Função que leva o usuário para outra autenticação para coseguir redefinir a senha"""
     print("Para redefinir a senha, autentique-se primeiro.")
     autentica2()  # Reutilizando a função de autenticação
 
-def autentica2(): #função igual 'autentica()' mas apenas para a autentficação de redefir senha. Porque a outra função de autenticação leva o usuário para a função menu(), 
-                  # essa vai levar o usuário para a função senha_nova()
+def autentica2(): 
+    """Função que autentica o login do usuário com o conteúdo do arquivo login.txt e o encaminha para alterar a senha"""
+    #função igual 'autentica()' mas apenas para a autentficação de redefir senha. Porque a outra função de autenticação leva o usuário para a função menu(), 
+    # essa vai levar o usuário para a função senha_nova()
     usuario2 = input('Digite o nome de usuário atual:')
     usuario2 = hashlib.sha256(usuario2.encode()).hexdigest()
     senha2 = input('Digite a senha atual:')
@@ -106,6 +112,7 @@ def autentica2(): #função igual 'autentica()' mas apenas para a autentficaçã
             print('Login não identificado. Crie um login primeiro')
 
 def senha_nova():
+    """Função que permite o usuário redefinir a sua senha e atualiza as novas informações no arquivo login.txt"""
     nova_senha = input('Digite a nova senha: ').strip() #usuário escreve a nova senha que ele deseja
     nova_senha_confirmacao = input('Confirme a nova senha: ').strip() # confrma a nova senha que ele quer
 
@@ -123,8 +130,7 @@ def senha_nova():
 
 
 def adiciona_item(produtos):
-    """Fução para adicionar um novo item (chave:valor)
-     ao dicionário produtos"""
+    """Função que adiciona um novo item (chave:valor) com as informações de 'id', 'nome', 'quantidade', 'preço' e se é 'importado' ao inventário produtos"""
 
     chave = input('Insira o ID do produto: ')
 
@@ -156,7 +162,7 @@ def adiciona_item(produtos):
     menu()
 
 def remove_item(produtos):
-     """Função para remover um item do dicionário de produtos"""
+     """Função que remove um item do inventário de produtos de acordo com o id"""
     
     chave = input('Insira o ID do produto que deseja remover: ')
     
