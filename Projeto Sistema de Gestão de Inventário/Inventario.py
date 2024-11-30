@@ -77,25 +77,7 @@ def menu():
             break
         else:
             print('Essa opção não existe. Tente novamente')
-
-# def redefinir_senha():
-#     print("Para redefinir a senha, autentique-se primeiro.")
-#     autenticado, usuario = autentica()  # Reutilizando a função de autenticação
-
-#     if autenticado:
-#         nova_senha = input('Digite a nova senha: ').strip()
-#         nova_senha_confirmacao = input('Confirme a nova senha: ').strip()
-
-#         if nova_senha == nova_senha_confirmacao:
-#             nova_senha_hash = hashlib.sha256(nova_senha.encode()).hexdigest()
-#             with open('login.txt', 'w') as a:
-#                 a.write(f'{usuario}\n{nova_senha_hash}\n')
-#             print("Senha redefinida com sucesso!")
-#         else:
-#             print("As senhas não correspondem. Tente novamente.")
-#     else:
-#         print("Redefinição de senha cancelada devido à falha na autenticação.")
-
+            
 def redefinir_senha():
     print("Para redefinir a senha, autentique-se primeiro.")
     autentica2()  # Reutilizando a função de autenticação
