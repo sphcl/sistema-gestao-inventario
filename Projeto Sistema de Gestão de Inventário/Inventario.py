@@ -141,21 +141,53 @@ def senha_nova():
 def adiciona_item(produtos):
     """Função que adiciona um novo item (chave:valor) com as informações de 'id', 'nome', 'quantidade', 'preço' e se é 'importado' ao inventário produtos"""
 
-    chave = input('Insira o ID do produto: ')
+    while True:
+            chave = input('Insira o ID do produto: ')
+            if chave in produtos:
+                    print("Erro: Este ID já existe no inventário. Tente novamente.")
+            elif not chave:  # Checa se o ID está vazio
+                    print("Erro: O ID não pode estar vazio. Tente novamente.")
+            else: 
+                break #chave válida
 
-    nome = input('Insira o nome do produto: ')
-    qtd = int(input('Insira quantidade de unidades do produto: '))
-    preco = float(input('Insira o preço do produto (uma casa depois do ponto): '))
-    importado = input('O produto é importado? s/n: ')
+    while True:
+            nome = input('Insira o nome do produto: ').strip()
+            if not nome:
+                print("Erro: O nome não pode estar vazio. Tente novamente.")
+            else:
+                break #nome válido
 
-    if importado == 's':
-        importado = True
-    else: 
-        importado = False
+    while True:
+            try:
+                qtd = int(input('Insira a quantidade de unidades do produto: '))
+                if qtd < 0:
+                        print("Erro: A quantidade não pode ser negativa. Tente novamente.")
+                else:
+                    break  # Quantidade válida
+            except ValueError:
+                print("Erro: Insira um número inteiro válido para a quantidade.")
+            
+    while True:
+            try:
+                preco = float(input('Insira o preço do produto : '))
+                if preco < 0:
+                    print("Erro: O preço não pode ser negativo. Tente novamente.")
+                else:
+                    break  # Preço válido
+            except ValueError:
+                print("Erro: Insira um número válido para o preço.")
+
+    while True:
+            importado_input = input('O produto é importado? (s/n): ').strip().lower()
+            if importado_input not in ['s', 'n']:
+                print("Erro: Digite 's' para sim ou 'n' para não.")
+            else:
+                importado = importado_input == 's'  # Converte para booleano
+                break  # Entrada válida
 
     valor = {
         'nome': nome, 
-        #'qtd': cesar(str(qtd)),
+        #'qtd': cesar(str(qtd)), 
         'qtd': qtd,
         #'preco': cesar(str(preco)), 
         'preco': preco,
