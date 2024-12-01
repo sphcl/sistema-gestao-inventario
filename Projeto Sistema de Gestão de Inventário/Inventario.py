@@ -253,38 +253,37 @@ def atualiza_item(produtos):
     menu()
 
 #Função em teste ainda - duda
-def exibe_inventario(produtos):
-    """
-    Função para exibir os produtos no inventário em ordem alfabética de nomes.
-    """
+def bubble_sort(itens, chave):
+    """Ordena uma lista de dicionários ou tuplas alfabeticamente com Bubble Sort, usando a chave especificada."""
+    n = len(itens)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            # Compara pelo valor da chave convertida para minúsculas (alfabética)
+            if itens[j][1][chave].lower() > itens[j + 1][1][chave].lower():
+                itens[j], itens[j + 1] = itens[j + 1], itens[j]
+    return itens
 
-    #Verifica se o dicionário está vazio
+def exibe_inventario(produtos):
+    """Exibe os produtos do inventário ordenados alfabeticamente pelo nome."""
     if not produtos:
         print("O inventário está vazio.")
         return
 
-    #Converte os produtos para uma lista de tuplas (ID, [nome, qtd, preco, importado])
-    produtos_lista = [(k, v) for k, v in produtos.items()]
+    # Converte o dicionário para uma lista de tuplas (ID, informações do produto)
+    itens = list(produtos.items())
 
-    #Função de bubble sort para ordenar pelo nome
-    n = len(produtos_lista)
-    for i in range(n):
-        for j in range(0, n - i - 1):
-            if produtos_lista[j][1][0].lower() > produtos_lista[j + 1][1][0].lower():
-                produtos_lista[j], produtos_lista[j + 1] = produtos_lista[j + 1], produtos_lista[j]
+    # Ordena os produtos pelo nome usando Bubble Sort
+    itens_ordenados = bubble_sort(itens, 'nome')
 
-    #Exibindo os produtos ordenados
-    print("Inventário de Produtos (Ordenado por Nome):")
-    print("-" * 40)
-    for id_produto, dados in produtos_lista:
-        nome, qtd, preco, importado = dados
+    # Exibe os produtos ordenados
+    print("Produtos no inventário (ordenados por nome):")
+    for id_produto, info in itens_ordenados:
         print(f"ID: {id_produto}")
-        print(f"Nome: {nome}")
-        print(f"Quantidade: {qtd}")
-        print(f"Preço: R${preco:.2f}")
-        print(f"Importado: {'Sim' if importado else 'Não'}")
+        print(f"Nome: {info['nome']}")
+        print(f"Quantidade: {cesar(info['qtd'], -2)}")  # Decifra a quantidade
+        print(f"Preço: {cesar(info['preco'], -2)}")  # Decifra o preço
+        print(f"Importado: {'Sim' if info['importado'] else 'Não'}")
         print("-" * 40)
-
 
 #esse encontra item tem q verificar a existência de um produto (por ID ou nome).
 def encontra_item(produtos):
