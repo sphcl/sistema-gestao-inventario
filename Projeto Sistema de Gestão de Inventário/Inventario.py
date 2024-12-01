@@ -70,7 +70,7 @@ def menu():
         elif decisao == 4:
             atualiza_item(produtos)
         elif decisao == 5:
-            exibe_iventario(produtos)
+            exibe_inventario(produtos)
         elif decisao == 6:
             encontra_item(produtos)
         elif decisao == 7:
@@ -186,12 +186,74 @@ def remove_item(produtos):
     # Devolvendo o usuário ao menu de operação
     menu()
 
-#Função vazia por enquanto - soso
 def atualiza_item(produtos):
-    pass
+    """Função que permite atualizar informações de um produto existente no inventário."""
+    if not produtos:
+        print("O inventário está vazio. Nenhum produto para atualizar.")
+        menu()
+        return
+
+    # Solicita o ID do produto a ser atualizado
+    chave = input('Digite o ID do produto que deseja atualizar: ').strip()
+
+    if chave not in produtos:
+        print(50 * '-')
+        print(f'O produto com ID {chave} não foi encontrado no inventário.')
+        print(50 * '-')
+        menu()
+        return
+
+    # Exibir as informações atuais do produto
+    produto = produtos[chave]
+    print(50 * '-')
+    print(f"ID: {chave}")
+    print(f"Nome: {produto['nome']}")
+    # print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
+    # print(f"Preço: {cesar(produto['preco'], decrypt=True):.2f}")
+    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
+    print(50 * '-')
+
+    # Solicitar ao usuário os campos que ele deseja atualizar
+    print("Quais informações você deseja atualizar?")
+    print("1. Nome")
+    print("2. Quantidade")
+    print("3. Preço")
+    print("4. Importado")
+    print("5. Voltar ao menu")
+    opcao = int(input("Digite o número da opção desejada: ").strip())
+
+    if opcao == 1:
+        produto['nome'] = input('Digite o novo nome do produto: ').strip()
+    elif opcao == 2:
+        produto['qtd'] = int(input('Digite a nova quantidade do produto: ').strip())
+    elif opcao == 3:
+        produto['preco'] = float(input('Digite o novo preço do produto: ').strip())
+    elif opcao == 4:
+        importado = input('O produto é importado? (s/n): ').strip().lower()
+        produto['importado'] = True if importado == 's' else False
+    elif opcao == 5:
+        menu()
+        return
+    else:
+        print("Opção inválida. Tente novamente.")
+        atualiza_item(produtos)
+        return
+
+    # Confirmar a atualização
+    print(50 * '-')
+    print("Produto atualizado com sucesso!")
+    print(f"ID: {chave}")
+    print(f"Nome: {produto['nome']}")
+    print(f"Quantidade: {(produto['qtd'])}")
+    print(f"Preço: {(produto['preco']):.2f}")
+    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
+    print(50 * '-')
+    
+    # Voltar ao menu principal
+    menu()
 
 #Função em teste ainda - duda
-def exibe_iventario(produtos):
+def exibe_inventario(produtos):
     """
     Função para exibir os produtos no inventário em ordem alfabética de nomes.
     """
@@ -361,5 +423,3 @@ produtos = {}
 
 #chamando a função crialogin() para começar o programa
 crialogin()
-
-
