@@ -19,7 +19,7 @@
 #### •Python 3.12.5
 
 ### Biblioteca utilizada:
-#### Ainda em desenvolvimento.
+#### •hashlib
 
 ![projetoEmDesenvolvimento](https://github.com/user-attachments/assets/5140dfd0-2914-4e01-9c08-4d6461a09dde)
 
