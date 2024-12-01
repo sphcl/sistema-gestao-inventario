@@ -193,7 +193,7 @@ def atualiza_item(produtos):
         menu()
         return
 
-    # Solicita o ID do produto a ser atualizado
+    #solicita o ID do produto a ser atualizado
     chave = input('Digite o ID do produto que deseja atualizar: ').strip()
 
     if chave not in produtos:
@@ -203,7 +203,7 @@ def atualiza_item(produtos):
         menu()
         return
 
-    # Exibir as informações atuais do produto
+    #exibir as informações atuais do produto
     produto = produtos[chave]
     print(50 * '-')
     print(f"ID: {chave}")
@@ -213,7 +213,7 @@ def atualiza_item(produtos):
     print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
     print(50 * '-')
 
-    # Solicitar ao usuário os campos que ele deseja atualizar
+    #solicitar ao usuário os campos que ele deseja atualizar
     print("Quais informações você deseja atualizar?")
     print("1. Nome")
     print("2. Quantidade")
@@ -239,7 +239,7 @@ def atualiza_item(produtos):
         atualiza_item(produtos)
         return
 
-    # Confirmar a atualização
+    #confirmar a atualização
     print(50 * '-')
     print("Produto atualizado com sucesso!")
     print(f"ID: {chave}")
@@ -249,7 +249,7 @@ def atualiza_item(produtos):
     print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
     print(50 * '-')
     
-    # Voltar ao menu principal
+    #voltar ao menu principal
     menu()
 
 #Função em teste ainda - duda
