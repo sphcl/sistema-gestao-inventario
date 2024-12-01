@@ -127,10 +127,12 @@ def senha_nova():
             print("As senhas não correspondem. Tente novamente.")
             nova_senha()
 
-def cesar(texto, chave=2): #recebe o preço e o valor dos produtos do inventário como uma string
-    L = list(texto) #transforma string em uma lista
+def cesar(texto, chave=2, decrypt=False):
+    if decrypt:
+        chave = -chave
+    L = list(texto)
     for i in range(len(L)):
-        L[i] = proximo(L[i], chave)
+        L[i] = chr(ord(L[i]) + chave)
     return ''.join(L)
 
 def proximo(letra, chave=2):
@@ -187,7 +189,6 @@ def remove_item(produtos):
     menu()
 
 def atualiza_item(produtos):
-    """Função que permite atualizar informações de um produto existente no inventário."""
     if not produtos:
         print("O inventário está vazio. Nenhum produto para atualizar.")
         menu()
@@ -208,8 +209,8 @@ def atualiza_item(produtos):
     print(50 * '-')
     print(f"ID: {chave}")
     print(f"Nome: {produto['nome']}")
-    print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
-    print(f"Preço: {cesar(produto['preco'], decrypt=True):.2f}")
+    #print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
+    #print(f"Preço: {cesar(produto['preco'], decrypt=True):.2f}")
     print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
     print(50 * '-')
 
@@ -244,15 +245,14 @@ def atualiza_item(produtos):
     print("Produto atualizado com sucesso!")
     print(f"ID: {chave}")
     print(f"Nome: {produto['nome']}")
-    #print(f"Quantidade: {cesar(produto['qtd'])}")
-    #print(f"Preço: {cesar(produto['preco']):.2f}")
+    #print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
+    #print(f"Preço: {cesar(produto['preco'], decrypt=True):.2f}")
     print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
     print(50 * '-')
     
     #voltar ao menu principal
     menu()
 
-#Função em teste ainda - duda
 def bubble_sort(itens, chave):
     """Ordena uma lista de dicionários ou tuplas alfabeticamente com Bubble Sort, usando a chave especificada."""
     n = len(itens)
@@ -411,13 +411,43 @@ def encontra_item(produtos):
         print('Por favor digite apenas 1 ou 2!!')
         print("-"*40)
 
- 
 
-#Função vazia por enquanto - soso
 def estatistica_inventario(produtos):
-    pass
+    if not produtos:
+        print("\nO inventário está vazio.")
+        return
 
-# Criando inventario Produtos
+    qtd_total = 0
+    valor_total = 0
+    mais_caro = None
+    mais_barato = None
+
+    for id_produto, item in produtos.items():
+        qtd = int(cesar(item['qtd'], decrypt=True))  #descriptografar quantidade
+        preco = float(cesar(item['preco'], decrypt=True))  #descriptografar preço
+
+        qtd_total += qtd
+        valor_total += qtd * preco
+
+        if mais_caro is None or preco > float(cesar(mais_caro['preco'], decrypt=True)):
+            mais_caro = item
+
+        if mais_barato is None or preco < float(cesar(mais_barato['preco'], decrypt=True)):
+            mais_barato = item
+
+    print("\n" + "*" * 50)
+    print("╭───────────≪ INVENTÁRIO ≫───────────╮".center(50))
+    print("*" * 50)
+    print(f"Quantidade total de produtos: {qtd_total}")
+    print(f"Valor total do inventário: R${valor_total:.2f}")
+    print(f"Produto mais caro: {mais_caro['nome']} - Preço: R${float(cesar(mais_caro['preco'], decrypt=True)):.2f}")
+    print(f"Produto mais barato: {mais_barato['nome']} - Preço: R${float(cesar(mais_barato['preco'], decrypt=True)):.2f}")
+    print("*" * 50)
+
+    menu()
+
+
+#criando inventario Produtos
 produtos = {}
 
 #chamando a função crialogin() para começar o programa
