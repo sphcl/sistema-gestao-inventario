@@ -127,15 +127,6 @@ def senha_nova():
             print("As senhas não correspondem. Tente novamente.")
             nova_senha()
 
-def cesar(texto, chave=2): #recebe o preço e o valor dos produtos do inventário como uma string
-    L = list(texto) #transforma string em uma lista
-    for i in range(len(L)):
-        L[i] = proximo(L[i], chave)
-    return ''.join(L)
-
-def proximo(letra, chave=2):
-    return chr(ord(letra) + chave) #transforma a letra em número e depos em string de novo
-
 def adiciona_item(produtos):
     """Função que adiciona um novo item (chave:valor) com as informações de 'id', 'nome', 'quantidade', 'preço' e se é 'importado' ao inventário produtos"""
 
@@ -153,8 +144,8 @@ def adiciona_item(produtos):
 
     valor = {
         'nome': nome, 
-        'qtd': cesar(qtd), 
-        'preco': cesar(preco), 
+        'qtd': qtd, 
+        'preco': preco, 
         'importado': importado
         }
 
