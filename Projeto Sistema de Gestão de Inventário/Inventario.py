@@ -279,8 +279,8 @@ def atualiza_item(produtos):
     print("Produto atualizado com sucesso!")
     print(f"ID: {chave}")
     print(f"Nome: {produto['nome']}")
-    #print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
-    #print(f"Preço: {cesar(produto['preco'], decrypt=True):.2f}")
+    print(f"Quantidade: {cesar(produto['qtd'], decrypt=True)}")
+    print(f"Preço: {cesar(produto['preco'], decrypt=True)}")
     print(f"Importado: {'Sim' if produto['importado'] else 'Não'}")
     print(50 * '-')
     
