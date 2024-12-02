@@ -254,7 +254,7 @@ def atualiza_item(produtos):
     print("3. Preço")
     print("4. Importado")
     print("5. Voltar ao menu")
-    opcao = int(input("Digite o número da opção desejada: ").strip()) #solicitar ao usuário os campos que ele deseja atualizar
+    opcao = int(input("Digite o número da opção desejada: ")) #solicitar ao usuário os campos que ele deseja atualizar
 
     if opcao == 1:
         produto['nome'] = input('Digite o novo nome do produto: ').strip()#Se o usuário escolher 1, ele altera o nome do produto
