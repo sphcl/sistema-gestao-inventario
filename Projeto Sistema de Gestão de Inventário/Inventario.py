@@ -2,16 +2,16 @@ import hashlib
 def crialogin(): 
     """Função que começa o login do usuário. Cria ou apenas lê um arquivo 'login.txt' ja existente """
     try: #tenta abrir o arquvo 'logn.txt para apenas ler (se existir)
-        a = open('login.txt', 'r')
-        autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
+        with open('login.txt', 'r') as a:
+            autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
                      #a entrada do usuário precisa ser autenticada
     except FileNotFoundError:
-        a = open('login.txt', 'w+') #Caso não exista um arquivo 'login.txt' ele cria um e permite a escrita
-        usuario = input('Cadastre o nome do usuário:')
-        usuario = hashlib.sha256(usuario.encode()).hexdigest() #Aplicando a função hash236 para o nome do usuario
-        senha = input('Cadastre a senha:')
-        senha = hashlib.sha256(senha.encode()).hexdigest() #Aplicando a função hash236 para a senha do usuario
-        a.write(f'{usuario}\n{senha}\n') #Escrevendo a senha e o nome do usuário criptografado no arquivo login.txt
+        with open('login.txt', 'w+') as a: #Caso não exista um arquivo 'login.txt' ele cria um e permite a escrita
+            usuario = input('Cadastre o nome do usuário:')
+            usuario = hashlib.sha256(usuario.encode()).hexdigest() #Aplicando a função hash236 para o nome do usuario
+            senha = input('Cadastre a senha:')
+            senha = hashlib.sha256(senha.encode()).hexdigest() #Aplicando a função hash236 para a senha do usuario
+            a.write(f'{usuario}\n{senha}\n') #Escrevendo a senha e o nome do usuário criptografado no arquivo login.txt
         menu() #Chama a função menu. Ja que é o primeiro cadastro do usuário ele não precisa ser autenticado
 
 def autentica(): 
