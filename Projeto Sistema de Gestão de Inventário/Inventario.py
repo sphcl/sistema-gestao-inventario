@@ -223,29 +223,29 @@ def remove_item(produtos):
 
 def atualiza_item(produtos):
     """ Função que atualiza a informação (nome, quantidade, preço ou importado) de um item do inventário"""
-    if not produtos: #Verifica se o iventário produtos é = False, ou seja, se está vazio
+    if not produtos: #Verifica se o inventário produtos é = False, ou seja, se está vazio
         print("O inventário está vazio. Nenhum produto para atualizar.")
-        menu() #ja que está vazio, retorna o usuário para o menu de operações para tomar outra ação
+        menu() #Já que está vazio, retorna o usuário para o menu de operações para tomar outra ação
         return
 
-    chave = input('Digite o ID do produto que deseja atualizar: ').strip() #solicita o ID do produto a ser atualizado e ignora espaços desnecessários
+    chave = input('Digite o ID do produto que deseja atualizar: ').strip() #Solicita o ID do produto a ser atualizado e ignora espaços desnecessários
 
-    if chave not in produtos: #se a chave fornecida pelo usuário não estiver no iventário produtos
+    if chave not in produtos: #Se a chave fornecida pelo usuário não estiver no inventário produtos
         print(50 * '-')
         print(f'O produto com ID {chave} não foi encontrado no inventário. Tente novamente atualizar outro produto')
         print(50 * '-')
-        atualiza_item(produtos) #ja que o usuário forneceu um id que não existe, retorna o usuário para a mesma função para ele tentar encontrar novamente
+        atualiza_item(produtos) #Já que o usuário forneceu um id que não existe, retorna o usuário para a mesma função para ele tentar encontrar novamente
         return
 
-    produto = produtos[chave]  # quando o id existe em produtos, atribui esse id as informações do produto correspondente
+    produto = produtos[chave]  #Quando o id existe em produtos, atribui esse id as informações do produto correspondente
     print(50 * '-')
-    print('Essas são as informações atuais do produto: ') #exibe as informações atuais do produto:
+    print('Essas são as informações atuais do produto: ') #Exibe as informações atuais do produto:
     print(50 * '-')
-    print(f"ID: {chave}") #mostra o id que o usuário forneceu
-    print(f"Nome: {produto['nome']}") #mostra o nome do produto correspondente
-    print(f"Quantidade: {cesar(produto['qtd'], decriptar=True)}") #decifra a criptografia que foi gerada na quantidade desse produto quando ele foi adicionado, antes de exibir para o usuário
-    print(f"Preço: {cesar(produto['preco'], decriptar=True)}")#decifra a criptografia que foi gerada no preço desse produto quando ele foi adicionado, antes de exibir para o usuário
-    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #mostra a informação sobre se é importado ou não do produto correspondente
+    print(f"ID: {chave}") #Mostra o id que o usuário forneceu
+    print(f"Nome: {produto['nome']}") #Mostra o nome do produto correspondente
+    print(f"Quantidade: {cesar(produto['qtd'], decriptar=True)}") #Decifra a criptografia que foi gerada na quantidade desse produto quando ele foi adicionado, antes de exibir para o usuário
+    print(f"Preço: {cesar(produto['preco'], decriptar=True)}")#Decifra a criptografia que foi gerada no preço desse produto quando ele foi adicionado, antes de exibir para o usuário
+    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #Mostra a informação sobre se é importado ou não do produto correspondente
     print(50 * '-')
 
     print("Quais informações você deseja atualizar?") 
@@ -254,35 +254,35 @@ def atualiza_item(produtos):
     print("3. Preço")
     print("4. Importado")
     print("5. Voltar ao menu")
-    opcao = int(input("Digite o número da opção desejada: ")) #solicitar ao usuário os campos que ele deseja atualizar
+    opcao = int(input("Digite o número da opção desejada: ")) #Solicitar ao usuário os campos que ele deseja atualizar
 
     if opcao == 1:
-        produto['nome'] = input('Digite o novo nome do produto: ').strip()#Se o usuário escolher 1, ele altera o nome do produto
+        produto['nome'] = input('Digite o novo nome do produto: ').strip() #Se o usuário escolher 1, ele altera o nome do produto
     elif opcao == 2:
-        produto['qtd'] = cesar(str(int(input('Digite a nova quantidade do produto: '))).strip()) # Se o usuário escolher 2, ele altera a qtd do produto, transforma em string e criptografa pra armazenar no iventário
+        produto['qtd'] = cesar(str(int(input('Digite a nova quantidade do produto: '))).strip()) #Se o usuário escolher 2, ele altera a qtd do produto, transforma em string e criptografa pra armazenar no inventário
     elif opcao == 3:
-        produto['preco'] = cesar(str(float(input('Digite o novo preço do produto: '))).strip()) # Se o usuário escolher 3, ele altera o preço do produto, transforma em string e criptografa pra armazenar no iventário
+        produto['preco'] = cesar(str(float(input('Digite o novo preço do produto: '))).strip()) #Se o usuário escolher 3, ele altera o preço do produto, transforma em string e criptografa pra armazenar no inventário
     elif opcao == 4:
         importado = input('O produto é importado? (s/n): ').strip().lower() #Se o usuário escolher 4, ele muda se é importado(True) ou não(False)
         produto['importado'] = True if importado == 's' else False
     elif opcao == 5: 
-        menu()#Se o usuário escolher 5, ele retorna ao menu de operações
+        menu() #Se o usuário escolher 5, ele retorna ao menu de operações
         return
     else:
         print("Opção inválida. Tente novamente.") #Se o usuário não escolhe nenhuma das opções apresentadas ele volta para função e tenta novamente
         atualiza_item(produtos)
         return
 
-    print(50 * '-') #confirmar a atualização das informações do produto
+    print(50 * '-') #Confirmar a atualização das informações do produto
     print("Produto atualizado com sucesso!")
-    print(f"ID: {chave}") #exibe o id que o usuário forneceu
-    print(f"Nome: {produto['nome']}") #exibe o nome do produto que o usuário atualizou ou o que ja estava
-    print(f"Quantidade: {cesar(produto['qtd'], decriptar=True)}") #exibe decifrado a qtd do produto que o usuário atualizou ou o que ja estava
-    print(f"Preço: {cesar(produto['preco'], decriptar=True)}") #exibe decifrado o preço do produto que o usuário atualizou ou o que ja estava
-    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #exibe a atulização de importado ou o valor que ja estava
+    print(f"ID: {chave}") #Exibe o id que o usuário forneceu
+    print(f"Nome: {produto['nome']}") #Exibe o nome do produto que o usuário atualizou ou o que já estava
+    print(f"Quantidade: {cesar(produto['qtd'], decriptar=True)}") #Exibe decifrado a qtd do produto que o usuário atualizou ou o que já estava
+    print(f"Preço: {cesar(produto['preco'], decriptar=True)}") #Exibe decifrado o preço do produto que o usuário atualizou ou o que já estava
+    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #Exibe a atulização de importado ou o valor que já estava
     print(50 * '-')
     
-    menu()#depois da atualização, retorna o usuário ao menu de operações
+    menu() #Depois da atualização, retorna o usuário ao menu de operações
 
 def bubble_sort(itens, chave): 
     """Ordena uma lista de dicionários ou tuplas alfabeticamente com Bubble Sort, usando a chave(item que é usado de referência para a ordenação)"""
@@ -414,38 +414,38 @@ def encontra_item(produtos):
         encontra_item(produtos)
         
 def estatistica_inventario(produtos):
-    """Função que exibe as estatísticas do iventário de produtos, como o valor, quantidade de produtos e quais são os produtos mais caros e mais baratos"""
-    if not produtos: #Se o iventáriio tiver vazio
+    """Função que exibe as estatísticas do inventário de produtos, como o valor, quantidade de produtos e quais são os produtos mais caros e mais baratos"""
+    if not produtos: #Se o inventário tiver vazio
         print('-' * 80)
         print("O inventário está vazio. Não existe estatistica")
         print('-' * 80)
-        menu() #encaminha o usuário para o menu
+        menu() #Encaminha o usuário para o menu
         return
     
-    #caso o inventário não esteja vazio
-    qtd_total = 0 #define inicialmente a variável quantidade total zerada
-    valor_total = 0  #define inicialmente a variável valor total zerada
-    mais_caro = None  #define inicialmente a variável mais caro como None (valor nulo)
-    mais_barato = None #define inicialmente a variável mais caro como None (valor nulo)
+    #Caso o inventário não esteja vazio
+    qtd_total = 0 #Define inicialmente a variável quantidade total zerada
+    valor_total = 0  #Define inicialmente a variável valor total zerada
+    mais_caro = None  #Define inicialmente a variável mais caro como None (valor nulo)
+    mais_barato = None #Define inicialmente a variável mais caro como None (valor nulo)
 
     for id_produto, item in produtos.items():
-        qtd = int(cesar(item['qtd'], decriptar=True))  # atribui a qtd, a quantide do produto decifrada
-        preco = float(cesar(item['preco'], decriptar=True)) # atribui a preco, o preço do produto decifrado 
+        qtd = int(cesar(item['qtd'], decriptar=True))  #Atribui a qtd, a quantidade do produto decifrada
+        preco = float(cesar(item['preco'], decriptar=True)) #Atribui a preço, o preço do produto decifrado 
 
-        qtd_total += qtd #soma qtd total com a qtd de cada produto do iventário que passa pelo for
-        valor_total += qtd * preco #soma qtd total com a qtd de cada produto do iventário vezes o preço da unidade
+        qtd_total += qtd #Soma qtd total com a qtd de cada produto do inventário que passa pelo for
+        valor_total += qtd * preco #soma qtd total com a qtd de cada produto do inventário vezes o preço da unidade
 
-        if mais_caro is None or preco > float(cesar(mais_caro['preco'], decriptar=True)): #compara o preço de cada produto com o que está guardado em 'mais_caro'(que começa nulo)
-            mais_caro = item #se a comparação for maior, troca de posição
+        if mais_caro is None or preco > float(cesar(mais_caro['preco'], decriptar=True)): #Compara o preço de cada produto com o que está guardado em 'mais_caro'(que começa nulo)
+            mais_caro = item #Se a comparação for maior, troca de posição
 
         if mais_barato is None or preco < float(cesar(mais_barato['preco'], decriptar=True)):
-            mais_barato = item #se a comparação for menor, troca de posição
+            mais_barato = item #Se a comparação for menor, troca de posição
 
     print("\n" + "*" * 50) #Exibindo as estatísticas do inventário
     print("╭───────────≪ INVENTÁRIO ≫───────────╮".center(50))
     print("*" * 50)
-    print(f"Quantidade total de produtos: {qtd_total}")#Exibindo a quantidade total (contagem de produtos no iventário)
-    print(f"Valor total do inventário: R${valor_total:.2f}") #Exibindo o valor monetário do iventário 
+    print(f"Quantidade total de produtos: {qtd_total}") #Exibindo a quantidade total (contagem de produtos no inventário)
+    print(f"Valor total do inventário: R${valor_total:.2f}") #Exibindo o valor monetário do inventário 
     print(f"Produto mais caro: {mais_caro['nome']} -> Preço: R${float(cesar(mais_caro['preco'], decriptar=True)):.2f}") #Exibindo o produto mais caro e o preço decifrado
     print(f"Produto mais barato: {mais_barato['nome']} -> Preço: R${float(cesar(mais_barato['preco'], decriptar=True)):.2f}")  #Exibindo o produto mais barato e o preço decifrado
     print("*" * 50)
