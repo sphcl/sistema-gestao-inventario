@@ -32,14 +32,14 @@ def autentica():
                                                                            # com o 'usurio' e 'senha' que ja estavam no arquivo 'login.txt', através da hash256
                                                                            # ela retorna true ou false internamente
     if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
-        print(40 * '-')
+        print(80 * '-')
         print('Autenticação bem-sucedida')
-        print(40 * '-')
+        print(80 * '-')
         menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu() para ele seguir no fluxo do programa
     else:
-        print(40 * '-')
+        print(80 * '-')
         print('Usuario ou senha incorretos. Tente novamente') #caso a autenticação não seja bem sucedida
-        print(40 * '-')
+        print(80 * '-')
         autentica() # chama a função autentica para o usuário tentar novamente colocar as informações corretas
       
 def menu():
@@ -79,7 +79,7 @@ def menu():
             print(80 * '-')
             print('Encerrando o programa... todos os dados do inventário serão perdidos.')
             print(80 * '-')
-            break #Caso a decisão seja igual a 8, o menu informa o usuário que encerrará o programa
+            return #Caso a decisão seja igual a 8, o menu informa o usuário que encerrará o programa
         else:
             print('Essa opção não existe. Tente novamente') #Caso a decisão não seja nenhuma das opções acima o usuário não sai do menu e tem a opção de tentar novamente
             
@@ -333,6 +333,7 @@ def encontra_item(produtos):
 
             for chave, valor in produtos.items(): # loop for que percorre cada produto(par chave:valor) do iventário
                 if busca_nome == valor["nome"].lower(): #se o nome que o usuário colocou for o mesmo nome que exste em algum produto no inventário /transforma a entrada em letra minuscula
+                    print('-' * 40)
                     print(f'{valor["nome"]} encontrado:') #retorna que encontrou o produto pelo nome
                     print('-' * 40) # e mostra as outrsa informações do produto encontrado:
                     print(f'Este é o ID: {chave}')#exibe o id
