@@ -407,7 +407,12 @@ def encontra_item(produtos):
             print("Produto não encontrado. Tente novamente")
             print('-' * 40)
             encontra_item(produtos) #retorna o usuério para a mesma função para tentar encontrar o produto novamente
-            
+    else:
+        print('-' * 40)
+        print('Por favor digite apenas um ou dois!')
+        print('-' * 40)
+        encontra_item(produtos)
+        
 def estatistica_inventario(produtos):
     """Função que exibe as estatísticas do iventário de produtos, como o valor, quantidade de produtos e quais são os produtos mais caros e mais baratos"""
     if not produtos: #Se o iventáriio tiver vazio
