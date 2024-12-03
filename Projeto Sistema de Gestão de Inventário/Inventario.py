@@ -1,6 +1,6 @@
 import hashlib
 def crialogin(): #Função que começa o login do usuário. Cria ou apenas lê um arquivo 'login.txt'
-    try: #Tenta abrir o arquvo 'login.txt para leitura, caso ele já tenha sido criado
+    try: #Tenta abrir o arquivo 'login.txt para leitura, caso ele já tenha sido criado
         with open('login.txt', 'r') as a:
             autentica() #Chama a função 'autentica'
                      #A entrada do usuário é obrigatória 
@@ -26,7 +26,7 @@ def autentica(): #Função que autentica o login do usuário caso o arquivo logi
     usuario = a.readline().strip() #Lê a primeira linha do arquivo login.txt e atribui a variável 'usuário'
     senha = a.readline().strip() #Lê a segunda linha do arquivo login.txt e atribui a variável 'senha'
 
-    autenticacao = usuarioinput == usuario and senhainput == senha #variavel 'autenticacao' vai receber a comparaçao das entradas 'usuarioinput' e 'senhainput'
+    autenticacao = usuarioinput == usuario and senhainput == senha #variável 'autenticacao' vai receber a comparação das entradas 'usuarioinput' e 'senhainput'
                                                                            #Com o 'usuário  e 'senha' que já  estavam no arquivo 'login.txt', através da hash256
                                                                            #Ela retorna true ou false internamente
     if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
@@ -62,17 +62,17 @@ def menu():
         if decisao == 1:
             redefinir_senha() #Caso a decisão seja igual a 1, o menu encaminha o usuário para redefinir senha
         elif decisao == 2:
-            adiciona_item(produtos) #Caso a decisão seja igual a 2, o menu encaminha o usuário para adicionar um item ao iventário
+            adiciona_item(produtos) #Caso a decisão seja igual a 2, o menu encaminha o usuário para adicionar um item ao inventário
         elif decisao == 3:
-            remove_item(produtos) #Caso a decisão seja igual a 3, o menu encaminha o usuário para remover um item do iventário
+            remove_item(produtos) #Caso a decisão seja igual a 3, o menu encaminha o usuário para remover um item do inventário
         elif decisao == 4:
-            atualiza_item(produtos) #Caso a decisão seja igual a 4, o menu encaminha o usuário para atualizar um item do iventário
+            atualiza_item(produtos) #Caso a decisão seja igual a 4, o menu encaminha o usuário para atualizar um item do inventário
         elif decisao == 5:
-            exibe_inventario(produtos) #Caso a decisão seja igual a 5, o menu encaminha o usuário para vizualizar todo conteúdo do iventário
+            exibe_inventario(produtos) #Caso a decisão seja igual a 5, o menu encaminha o usuário para vizualizar todo conteúdo do inventário
         elif decisao == 6:
-            encontra_item(produtos) #Caso a decisão seja igual a 6, o menu encaminha o usuário para encontrar um produto do iventário
+            encontra_item(produtos) #Caso a decisão seja igual a 6, o menu encaminha o usuário para encontrar um produto do inventário
         elif decisao == 7:
-            estatistica_inventario(produtos) #Caso a decisão seja igual a 7, o menu encaminha o usuário para vizualizar as estatísticas do iventário
+            estatistica_inventario(produtos) #Caso a decisão seja igual a 7, o menu encaminha o usuário para vizualizar as estatísticas do inventário
         elif decisao == 8:
             print(80 * '-')
             print('Encerrando o programa... todos os dados do inventário serão perdidos.')
@@ -86,16 +86,16 @@ def redefinir_senha():
     print(80 * '-')
     print("Para redefinir sua senha, autentique-se primeiro.")
     print(80 * '-')
-    autentica2()  # Encaminhando para a autenticação 
+    autentica2()  #Encaminhando para a autenticação 
 
 def autentica2(): 
     """Função que autentica o login do usuário com o conteúdo do arquivo login.txt e o encaminha para alterar a senha"""
-    #função igual 'autentica()' mas apenas para a autentficação de redefir senha. Porque a outra função de autenticação leva o usuário para a função menu(), 
+    #Função igual 'autentica()' mas apenas para a autentficação de redefir senha. Porque a outra função de autenticação leva o usuário para a função menu(), 
     # essa vai levar o usuário para a função senha_nova()
     usuario2 = input('Digite o nome de usuário atual: ').strip()
-    usuario2 = hashlib.sha256(usuario2.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação do nome do usuario
+    usuario2 = hashlib.sha256(usuario2.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação do nome do usuário
     senha2 = input('Digite a senha atual: ').strip()
-    senha2 = hashlib.sha256(senha2.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação da senha do usuario 
+    senha2 = hashlib.sha256(senha2.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação da senha do usuário 
     
     
     a = open('login.txt', 'r')
@@ -107,7 +107,7 @@ def autentica2():
         print(40 * '-')
         print('Autenticação bem-sucedida')
         print(40 * '-')
-        senha_nova() #após autenticação bem sucedida o usuário pode definir uma senha nova
+        senha_nova() #após autenticação bem-sucedida o usuário pode definir uma senha nova
     else: #Se a variável autenticacao for falsa
         print(40 * '-')
         print('Usuario ou senha incorretos. Tente novamente')
@@ -121,7 +121,7 @@ def senha_nova():
 
     if nova_senha == nova_senha_confirmacao: #Valida se o usuáro escreveu a nova senha corretamente
             usuario = input('Insira o nome do usuário atual: ') #pede o nome do usuário só para conseguir escrever no 'login.txt' de novo
-            usuario = hashlib.sha256(usuario.encode()).hexdigest() #crptografa o usuário de novo para conseguir validar a entrada depois da redefinção da senha 
+            usuario = hashlib.sha256(usuario.encode()).hexdigest() #criptografa o usuário de novo para conseguir validar a entrada depois da redefinção da senha 
             nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest() # criptografa a nova senha com hash 256
             a = open('login.txt', 'w') #abre o arquivo login.txt
             a.write(f'{usuario}\n{nova_senha}\n') #apaga tudo que tem no arquivo 'logn.txt' e escreve o usuário e a nova senha por cima
@@ -137,7 +137,7 @@ def senha_nova():
 
 def cesar(texto, chave=2, decriptar=False):
     """Função que aplica criptografia/decriptografia baseada em cifra de césar com deslocamento de 2 letras para cada letra de 'texto'. """
-    if decriptar: #se decriptitar for True o deslocamento é feito ao contrário para decriptar, caso não seja segue com a chave para criptografar
+    if decriptar: #se decriptar for True o deslocamento é feito ao contrário para decriptar, caso não seja segue com a chave para criptografar
         chave = -chave
     L = list(texto) #o texto é transformado em lista e atribuido a uma variável para conseguir modificar cada indice(letra) da lista(texto)
     for i in range(len(L)): #para cada letra
@@ -277,7 +277,7 @@ def atualiza_item(produtos):
     print(f"Nome: {produto['nome']}") #Exibe o nome do produto que o usuário atualizou ou o que já estava
     print(f"Quantidade: {cesar(produto['qtd'], decriptar=True)}") #Exibe decifrado a qtd do produto que o usuário atualizou ou o que já estava
     print(f"Preço: {cesar(produto['preco'], decriptar=True)}") #Exibe decifrado o preço do produto que o usuário atualizou ou o que já estava
-    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #Exibe a atulização de importado ou o valor que já estava
+    print(f"Importado: {'Sim' if produto['importado'] else 'Não'}") #Exibe a atualização de importado ou o valor que já estava
     print(50 * '-')
     
     menu() #Depois da atualização, retorna o usuário ao menu de operações
@@ -287,7 +287,7 @@ def bubble_sort(itens, chave):
     n = len(itens) #atribui o tamanho da lista de produtos para n
     for i in range(n): #controla o número de vezes que a lista é percorrida - que corresponde ao tamanho de n
         for j in range(0, n - i - 1): #percorre os pares adjacentes na lista e realiza a troca, se necessário.
-            # Compara pelo valor da chave convertida para minúsculas (alfabética)
+            #Compara pelo valor da chave convertida para minúsculas (alfabética)
             if itens[j][1][chave].lower() > itens[j + 1][1][chave].lower():
                 itens[j], itens[j + 1] = itens[j + 1], itens[j] #Se o elemento atual é maior que o próximo, eles trocam de posição.
     return itens #A função retorna a lista itens ordenada alfabeticamente por nome
@@ -298,48 +298,48 @@ def exibe_inventario(produtos):
         print('-' * 100)
         print("O inventário está vazio, não há produtos para exibir.")
         print('-' * 100)
-        menu()#usuário retorna ao menu de operações
+        menu() #Usuário retorna ao menu de operações
         return
     
-    #caso o iventário produtos tenha coteúdo
-    itens = list(produtos.items()) # Converte o dicionário para uma lista de tuplas (ID, informações do produto)
+    #Caso o inventário produtos tenha conteúdo
+    itens = list(produtos.items()) #Converte o dicionário para uma lista de tuplas (ID, informações do produto)
 
-    itens_ordenados = bubble_sort(itens, 'nome')# Ordena os produtos pelo nome usando a função Bubble Sort
+    itens_ordenados = bubble_sort(itens, 'nome') #Ordena os produtos pelo nome usando a função Bubble Sort
 
-    # Exibe os produtos ordenados
+    #Exibe os produtos ordenados
     print(80 * '-')
     print("Lista de produtos do inventário em ordem alfabética:")
     print(80 * '-')
     for chave, valor in itens_ordenados:
-        print(f"ID: {chave}") #exibe o id do produto
-        print(f"Nome: {valor['nome']}") #exibe o nome do produto
-        print(f"Quantidade: {cesar(valor['qtd'], decriptar=True)}")  # Exibe a quantiidade do produto decifrada
-        print(f"Preço: R${float(cesar(valor['preco'], decriptar=True)):.2f}")  # Exibe o preço do produto decifrado
+        print(f"ID: {chave}") #Exibe o id do produto
+        print(f"Nome: {valor['nome']}") #Exibe o nome do produto
+        print(f"Quantidade: {cesar(valor['qtd'], decriptar=True)}")  #Exibe a quantiidade do produto decifrada
+        print(f"Preço: R${float(cesar(valor['preco'], decriptar=True)):.2f}")  #Exibe o preço do produto decifrado
         print(f"Importado: ",'Sim' if valor['importado'] else 'Não') #Exibe a informação de importado
         print("-" * 40)
 
 def encontra_item(produtos):
     """Função que encontra um item do inventário por nome ou id e retorna as informações do produto, ou apenas encontra o item pelo nome e retorna a existênca dele no iventário"""
-    proc_prod = int(input('Digite 1 para uma busca detalhada ou 2 para verificar apenas a existência do produto: ')) #Da a opção para o usuário encontrar um produto e saber suas informações ou apenas saber se ele existe no iventário
+    proc_prod = int(input('Digite 1 para uma busca detalhada ou 2 para verificar apenas a existência do produto: ')) #Dá a opção para o usuário encontrar um produto e saber suas informações ou apenas saber se ele existe no iventário
 
     if proc_prod == 1: #Caso o usuário escolha 1, ele terá uma busca detalhada
-        busca = input("Você quer buscar um item pelo seu nome ou pelo ID? (Digite 'nome' ou 'id'): ").strip().lower()# o usuário pode encontrar o produto pelo nome ou pelo id
+        busca = input("Você quer buscar um item pelo seu nome ou pelo ID? (Digite 'nome' ou 'id'): ").strip().lower() #o usuário pode encontrar o produto pelo nome ou pelo id
                                                                                                                      
         if busca == 'nome': #se o usuário preferiu a busca por nome
             busca_nome = input('Digite o nome do item: ').strip().lower() 
             encontrado = False #variável encontrado começa com o valor False
 
-            for chave, valor in produtos.items(): # loop for que percorre cada produto(par chave:valor) do iventário
+            for chave, valor in produtos.items(): #loop for que percorre cada produto(par chave:valor) do inventário
                 if busca_nome == valor["nome"].lower(): #se o nome que o usuário colocou for o mesmo nome que exste em algum produto no inventário /transforma a entrada em letra minuscula
                     print('-' * 40)
                     print(f'{valor["nome"]} encontrado:') #retorna que encontrou o produto pelo nome
                     print('-' * 40) # e mostra as outrsa informações do produto encontrado:
-                    print(f'Este é o ID: {chave}')#exibe o id
+                    print(f'Este é o ID: {chave}') #exibe o id
                     print(f'Esta é a quantidade: {cesar(valor['qtd'], decriptar=True)}') #exibe a quantdade decifrada
                     print(f'Este é o preço: R${float(cesar(valor['preco'], decriptar=True)):.2f}') #exibe o preço decifrado
-                    print('É importado: ', 'sim' if valor['importado'] else 'não') #exbe a se é importado ou não
+                    print('É importado: ', 'sim' if valor['importado'] else 'não') #exibe se é importado ou não
                     print('-' * 40)
-                    encontrado = True #ja que o produto foi encontrado, a variável 'encontrado' recebe o valor True
+                    encontrado = True #já que o produto foi encontrado, a variável 'encontrado' recebe o valor True
                     menu() #chama o menu novamente depois que o usuário encontra o produto
 
             if not encontrado: #Caso encontrado continue como False depois do término do for
@@ -351,7 +351,7 @@ def encontra_item(produtos):
         elif busca == 'id':
             busca_id = input('Digite o ID do produto: ').strip()
             if busca_id in produtos: #se o id que o usuário colocar estiver no inventário
-                valor = produtos[busca_id] #ja que o id (chave) existe, ele acessa as informações do produto(valor)
+                valor = produtos[busca_id] #já que o id (chave) existe, ele acessa as informações do produto(valor)
                 print('-' * 40)
                 print(f'Produto com o ID {busca_id} encontrado:')
                 print('-' * 40)
@@ -361,7 +361,7 @@ def encontra_item(produtos):
                 print('Importado: ', 'sim' if valor['importado'] else 'não') #exibe 'sim' se importado = True e 'não' se importado = 'False'
                 print('-' * 40)
                 menu() #chama o menu novamente depois que o usuário encontra o produto
-            else:#se o usuário não digitou um id que está no iventário
+            else: #se o usuário não digitou um id que está no inventário
                 print("-" * 80)
                 print('Este item não foi encontrado. Tente novamente')
                 print("-" * 80)
@@ -375,8 +375,8 @@ def encontra_item(produtos):
 
 
     elif proc_prod == 2: #Caso o usuário escolha 2, ele terá apenas a informação de que o produto existe no iventário ou não
-        nome_proc = input('Digite o nome do produto que você deseja verificar: ').strip().lower()#retira espaços desnecessários e deixa a letra minúscula
-        lista_valores = list(produtos.values()) #transforma o iventário em uma lista de produtos
+        nome_proc = input('Digite o nome do produto que você deseja verificar: ').strip().lower() #retira espaços desnecessários e deixa a letra minúscula
+        lista_valores = list(produtos.values()) #transforma o inventário em uma lista de produtos
 
         def troca(L, i, j):
             """Função que troca a posição do indice 'i' e 'j' de uma lista 'L' """
@@ -385,10 +385,10 @@ def encontra_item(produtos):
         def selection_sort(lista):
             """ Função que recebe uma lista e a ordena por ordem alfabética do nome dos produtos"""
             n = len(lista) # n recebe o tamanho da lista de produtos
-            for i in range(n): #para cada produto(indice)
-                menor_indice = i #define o primeiro indice como o menor
-                for j in range(i + 1, n): #compara o primeiro indice com o segundo até chegar no final do tamanho lista
-                    if lista[j]['nome'] < lista[menor_indice]['nome']: #se o nome do segundo indice(j) for menor(alfabeticamente) que o nome no primeiro indice, definido como 'menor_indice'
+            for i in range(n): #para cada produto(índice)
+                menor_indice = i #define o primeiro índice como o menor
+                for j in range(i + 1, n): #compara o primeiro índice com o segundo até chegar no final do tamanho lista
+                    if lista[j]['nome'] < lista[menor_indice]['nome']: #se o nome do segundo índice(j) for menor(alfabeticamente) que o nome no primeiro índice, definido como 'menor_indice'
                         menor_indice = j # o menor indice vira o j
                 troca(lista, i, menor_indice) #chama a função troca para trocar o j e o i de posição
 
@@ -450,6 +450,6 @@ def estatistica_inventario(produtos):
 
     menu() #Retornando o usuário para o menu de operações
 
-produtos = {} #criando dicionário produtos, que será nosso iventário, antes de começar o programa
+produtos = {} #criando dicionário produtos, que será nosso inventário, antes de começar o programa
 
 crialogin() #chamando a função crialogin() para começar o programa
