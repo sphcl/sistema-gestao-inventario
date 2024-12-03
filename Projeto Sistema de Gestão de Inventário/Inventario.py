@@ -55,32 +55,33 @@ def menu():
         print('6. Encontrar produto')
         print('7. Estatísticas do inventário')
         print('8. Sair do menu de operações')
+        try:
+            #Solicita ao usuário uma decisão
+            decisao = int(input('Escolha uma opção do menu de operações: '))
     
-        #Solicita ao usuário uma decisão
-        decisao = int(input('Escolha uma opção do menu de operações: '))
-
-        if decisao == 1:
-            redefinir_senha() #Caso a decisão seja igual a 1, o menu encaminha o usuário para redefinir senha
-        elif decisao == 2:
-            adiciona_item(produtos) #Caso a decisão seja igual a 2, o menu encaminha o usuário para adicionar um item ao iventário
-        elif decisao == 3:
-            remove_item(produtos) #Caso a decisão seja igual a 3, o menu encaminha o usuário para remover um item do iventário
-        elif decisao == 4:
-            atualiza_item(produtos) #Caso a decisão seja igual a 4, o menu encaminha o usuário para atualizar um item do iventário
-        elif decisao == 5:
-            exibe_inventario(produtos) #Caso a decisão seja igual a 5, o menu encaminha o usuário para vizualizar todo conteúdo do iventário
-        elif decisao == 6:
-            encontra_item(produtos) #Caso a decisão seja igual a 6, o menu encaminha o usuário para encontrar um produto do iventário
-        elif decisao == 7:
-            estatistica_inventario(produtos) #Caso a decisão seja igual a 7, o menu encaminha o usuário para vizualizar as estatísticas do iventário
-        elif decisao == 8:
-            print(80 * '-')
-            print('Encerrando o programa... todos os dados do inventário serão perdidos.')
-            print(80 * '-')
-            return #Caso a decisão seja igual a 8, o menu informa o usuário que encerrará o programa
-        else:
-            print('Essa opção não existe. Tente novamente') #Caso a decisão não seja nenhuma das opções acima o usuário não sai do menu e tem a opção de tentar novamente
-            
+            if decisao == 1:
+                redefinir_senha() #Caso a decisão seja igual a 1, o menu encaminha o usuário para redefinir senha
+            elif decisao == 2:
+                adiciona_item(produtos) #Caso a decisão seja igual a 2, o menu encaminha o usuário para adicionar um item ao iventário
+            elif decisao == 3:
+                remove_item(produtos) #Caso a decisão seja igual a 3, o menu encaminha o usuário para remover um item do iventário
+            elif decisao == 4:
+                atualiza_item(produtos) #Caso a decisão seja igual a 4, o menu encaminha o usuário para atualizar um item do iventário
+            elif decisao == 5:
+                exibe_inventario(produtos) #Caso a decisão seja igual a 5, o menu encaminha o usuário para vizualizar todo conteúdo do iventário
+            elif decisao == 6:
+                encontra_item(produtos) #Caso a decisão seja igual a 6, o menu encaminha o usuário para encontrar um produto do iventário
+            elif decisao == 7:
+                estatistica_inventario(produtos) #Caso a decisão seja igual a 7, o menu encaminha o usuário para vizualizar as estatísticas do iventário
+            elif decisao == 8:
+                print(80 * '-')
+                print('Encerrando o programa... todos os dados do inventário serão perdidos.')
+                print(80 * '-')
+                break
+            else:
+                print('Essa opção não existe. Tente novamente') #Caso a decisão não seja nenhuma das opções acima o usuário não sai do menu e tem a opção de tentar novamente
+        except ValueError:
+            print('Por favor, digite um número válido correspondente às opções do menu.')
 def redefinir_senha():
     """Função que leva o usuário para outra autenticação de 'usuário' e 'senha', para assim coseguir redefinir a senha"""
     print(80 * '-')
