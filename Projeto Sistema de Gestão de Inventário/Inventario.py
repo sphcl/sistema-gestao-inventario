@@ -1,46 +1,44 @@
 import hashlib
-def crialogin(): 
-    """Função que começa o login do usuário. Cria ou apenas lê um arquivo 'login.txt' ja existente """
-    try: #tenta abrir o arquvo 'logn.txt para apenas ler (se existir)
+def crialogin(): #Função que começa o login do usuário. Cria ou apenas lê um arquivo 'login.txt'
+    try: #Tenta abrir o arquvo 'login.txt para leitura, caso ele já tenha sido criado
         with open('login.txt', 'r') as a:
-            autentica() #Chama a função 'autentica', porque se no arquivo 'login.txt' ja tiver algum conteúdo
-                     #a entrada do usuário precisa ser autenticada
+            autentica() #Chama a função 'autentica'
+                     #A entrada do usuário é obrigatória 
     except FileNotFoundError:
-        with open('login.txt', 'w+') as a: #Caso não exista um arquivo 'login.txt' ele cria um e permite a escrita
+        with open('login.txt', 'w+') as a: #Caso não exista o arquivo 'login.txt' ele cria um e permite a escrita
             usuario = input('Cadastre o nome do usuário:')
-            usuario = hashlib.sha256(usuario.encode()).hexdigest() #Aplicando a função hash236 para o nome do usuario
+            usuario = hashlib.sha256(usuario.encode()).hexdigest() #Aplicando a função hash236 para o nome do usuário 
             senha = input('Cadastre a senha:')
-            senha = hashlib.sha256(senha.encode()).hexdigest() #Aplicando a função hash236 para a senha do usuario
+            senha = hashlib.sha256(senha.encode()).hexdigest() #Aplicando a função hash236 para a senha do usuário 
             a.write(f'{usuario}\n{senha}\n') #Escrevendo a senha e o nome do usuário criptografado no arquivo login.txt
-        menu() #Chama a função menu. Ja que é o primeiro cadastro do usuário ele não precisa ser autenticado
+        menu() #Chama a função 'menu' visto que o após o primeiro acesso do usuário, não é preciso autenticar
 
-def autentica(): 
-    """Função que autentica o login do usuário caso o arquivo login.txt ja exista no momento que ele roda o programa"""
-    #Se o arquivo login.txt ja tem conteúdo, essa função pede ao usuario as informações de entrada para autenticação
-    #função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o que está previamente no arquivo login.txt
+def autentica(): #Função que autentica o login do usuário caso o arquivo login.txt já exista
+    #Se o arquivo 'login.txt' está preenchido, essa função pede ao usuario as suas informações para autenticação
+    #Função hash sempre resulta no mesmo valor para um conteúdo específico, assim conseguimos validar as entradas com o conteúdo do arquivo login.txt
 
-    usuarioinput = input('Digite o nome do usuário:').strip() #entrada do nome do usuário e ignora espaços desnecessário
+    usuarioinput = input('Digite o nome do usuário:').strip() #Entrada do nome do usuário, ignorando espaços desnecessários
     usuarioinput = hashlib.sha256(usuarioinput.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação do nome do usuario 
-    senhainput = input('Digite a senha:').strip() #entrada da senha do usuário e ignora espaços desnecessários
+    senhainput = input('Digite a senha:').strip() #Entrada da senha do usuário, ignorando espaços desnecessários
     senhainput = hashlib.sha256(senhainput.encode()).hexdigest() #Aplicando a mesma função hash236 para autenticação da senha do usuario 
     
-    a = open('login.txt', 'r') #abre o arquivo login.txt apenas para leitura do usuário e senha
-    usuario = a.readline().strip() #lê a primeira linha criptografada do arquivo login.txt e atribui a variável 'usuário'
-    senha = a.readline().strip() #lê a segunda linha criptografada do arquivo login.txt e atribui a variável 'senha'
+    a = open('login.txt', 'r') #Abre o arquivo 'login.txt' apenas para leitura dos dados
+    usuario = a.readline().strip() #Lê a primeira linha do arquivo login.txt e atribui a variável 'usuário'
+    senha = a.readline().strip() #Lê a segunda linha do arquivo login.txt e atribui a variável 'senha'
 
     autenticacao = usuarioinput == usuario and senhainput == senha #variavel 'autenticacao' vai receber a comparaçao das entradas 'usuarioinput' e 'senhainput'
-                                                                           # com o 'usurio' e 'senha' que ja estavam no arquivo 'login.txt', através da hash256
-                                                                           # ela retorna true ou false internamente
+                                                                           #Com o 'usuário  e 'senha' que já  estavam no arquivo 'login.txt', através da hash256
+                                                                           #Ela retorna true ou false internamente
     if autenticacao: #Se a variável autenticacao for verdadeira, ou seja, login autenticado
         print(80 * '-')
         print('Autenticação bem-sucedida')
         print(80 * '-')
-        menu() #Como o login foi autenticado, encamiinhamos o usuario para a função menu() para ele seguir no fluxo do programa
+        menu() #Como o login foi autenticado, encaminhamos  o usuário para a função 'menu'
     else:
         print(80 * '-')
         print('Usuario ou senha incorretos. Tente novamente') #caso a autenticação não seja bem sucedida
         print(80 * '-')
-        autentica() # chama a função autentica para o usuário tentar novamente colocar as informações corretas
+        autentica() #Chama a função 'autentica' para o usuário tentar novamente
       
 def menu():
     """Função que organiza as outras funções do código em um menu de operações. O usuário executa apenas as funções que
